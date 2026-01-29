@@ -1,5 +1,17 @@
+<<<<<<< main
 import express from 'express';
 
+=======
+import AgentAPI from "apminsight";
+AgentAPI.config();
+
+import express from "express";
+import subjectsRouter from "./routes/subjects.js";
+import cors from "cors";
+import securityMiddleware from "./middleware/security.js";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth.js";
+>>>>>>> local
 const app = express();
 const port = 8000;
 
