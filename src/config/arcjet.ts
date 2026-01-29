@@ -26,7 +26,7 @@ const aj = arcjet({
         slidingWindow({
             mode: "LIVE",
             name: "login-window",
-            interval: 2s,
+            interval: 2000,
             max: 5,
             // Track by IP address
             characteristics: ["ip.src"],
