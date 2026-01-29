@@ -24,9 +24,13 @@ router.get("/", async (req, res) => {
         }
 
         if (department) {
-            filterConditions.push(eq(subjects.departmentId, +department));
-            const deptPattern = `%${String(department).replace(/\s+/g, '%')}%`;
-            filterConditions.push(ilike(departments.name, deptPattern));
+            const deptId = Number(department);
+            if (!isNaN(deptId)) {
+                filterConditions.push(eq(subjects.departmentId, deptId));
+            } else {
+                const deptPattern = `%${String(department).replace(/\s+/g, '%')}%`;
+                filterConditions.push(ilike(departments.name, deptPattern));
+            }
         }
 
         const whereClause = filterConditions.length > 0 ? and(...filterConditions) : undefined;
@@ -41,7 +45,7 @@ router.get("/", async (req, res) => {
         const subjectsList = await db
             .select({
                 ...getTableColumns(subjects),
-                departmentName: { ...getTableColumns(departments) },
+                department: { ...getTableColumns(departments) },
             }).from(subjects).leftJoin(departments, eq(subjects.departmentId, departments.id))
             .where(whereClause)
             .orderBy(desc(subjects.createdAt))

@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: true, // Allow any origin for debugging
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));

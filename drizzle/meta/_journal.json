@@ -8,6 +8,13 @@
       "when": 1769428542130,
       "tag": "0000_big_gideon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1769660907261,
+      "tag": "0001_calm_black_bolt",
+      "breakpoints": true
     }
   ]
 }
