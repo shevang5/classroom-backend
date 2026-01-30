@@ -2,11 +2,11 @@
   "name": "classroom-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node build/index.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,14 +24,14 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.45.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^22.10.10",
-    "drizzle-kit": "^0.31.8",
-    "tsx": "^4.21.0",
-    "typescript": "^5.7.3"
+    "drizzle-kit": "^0.31.8"
   }
 }
