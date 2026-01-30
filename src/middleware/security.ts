@@ -1,4 +1,3 @@
-import { slidingWindow } from "@arcjet/node";
 import type { ArcjetNodeRequest } from "@arcjet/node";
 import type { NextFunction, Request, Response } from "express";
 
@@ -15,35 +14,7 @@ const securityMiddleware = async (
     }
 
     try {
-        const role: RateLimitRole = req.user?.role ?? "guest";
-
-        let limit: number;
-        let message: string;
-
-        switch (role) {
-            case "admin":
-                limit = 100;
-                message = "Admin request limit exceeded (100 per minute). Slow down!";
-                break;
-            case "teacher":
-            case "student":
-                limit = 50;
-                message = "User request limit exceeded (50 per minute). Please wait.";
-                break;
-            default:
-                limit = 30;
-                message =
-                    "Guest request limit exceeded (30 per minute). Please sign up for higher limits.";
-                break;
-        }
-
-        const client = aj.withRule(
-            slidingWindow({
-                mode: "LIVE",
-                interval: "1m",
-                max: limit,
-            })
-        );
+        const client = aj; // Use base Arcjet instance without additional rate limit rules
 
         const arcjetRequest: ArcjetNodeRequest = {
             headers: req.headers,
@@ -67,13 +38,6 @@ const securityMiddleware = async (
             return res.status(403).json({
                 error: "Forbidden",
                 message: "Request blocked by security policy",
-            });
-        }
-
-        if (decision.isDenied() && decision.reason.isRateLimit()) {
-            return res.status(429).json({
-                error: "Too Many Requests",
-                message,
             });
         }
 
